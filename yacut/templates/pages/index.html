@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% block top_title %}YaCut - укоротитель ссылок{%endblock %}
+{% block form_title %}
+  Создайте короткую ссылку автоматически или предложите свой вариант
+{%endblock %}
+
+{% block form %}
+  <form method="POST" novalidate>
+    {{ form.csrf_token }}
+    {% for form_field in (form.original_link, form.custom_id) %}
+      {{ form_field(class="form-control form-control-lg py-2 mb-3", placeholder=form_field.label.text) }}
+      <p>
+        <span style="color:red">
+          {% for error in form_field.errors %}
+            {{ error }}
+          {% endfor %}
+        </span>
+      </p>
+    {% endfor %}
+    {{ form.submit(class="btn btn-primary", placeholder=form.submit.label.text) }}
+  </form>
+{% endblock %}
+
+{% block short_links %}
+  Короткая ссылка:
+  <p>
+    <a href="{{ url_for('redirect_view', link=short_links, _external=True) }}">{{ url_for('redirect_view', link=short_links, _external=True) }}</a>
+  </p>
+{% endblock %}
