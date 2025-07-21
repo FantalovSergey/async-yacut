@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% block top_title %}YaCut - загрузка файлов{%endblock %}
+{% block form_title %}
+  Загрузите файлы и получите на них короткие ссылки
+{%endblock %}
+
+{% block form %}
+  <form method="POST" novalidate enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    {{ form.files(class="form-control form-control-lg py-2 mb-3", placeholder=form.files.label.text) }}
+    <p>
+      <span style="color:red">
+        {% for error in form.files.errors %}
+          {{ error }}
+        {% endfor %}
+      </span>
+    </p>
+    {{ form.submit(class="btn btn-primary", placeholder=form.submit.label.text) }}
+  </form>
+{% endblock %}
+
+{% block short_links %}
+  {% for file, link in short_links %}
+    <p>
+      {{ file }} <a href="{{ url_for('redirect_view', link=link, _external=True) }}">{{ url_for('redirect_view', link=link, _external=True) }}</a>
+    </p>
+    <hr>
+  {%endfor %}
+{% endblock %}
