@@ -4,7 +4,7 @@ from .constants import SHORT_LINK_LENGTH, VALID_SYMBOLS_IN_SHORT_LINK
 from .models import URLMap
 
 
-def get_unique_short_id() -> str:
+def get_unique_short_id():
     while True:
         short_link = ''.join(
             [

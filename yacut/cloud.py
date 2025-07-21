@@ -7,7 +7,7 @@ from . import constants
 from .utils import get_unique_short_id
 
 
-async def upload_files(files) -> list[tuple] | str:
+async def upload_files(files) -> list[tuple]:
     """Возвращает список ссылок (длинную и короткую) на файлы."""
     short_links = []
     tasks = []
