@@ -1,37 +1,35 @@
 import asyncio
 import urllib
+from time import time_ns
 
 import aiohttp
 
 from . import constants
-from .utils import get_unique_short_id
 
 
-async def upload_files(files) -> list[tuple]:
-    """Возвращает список ссылок (длинную и короткую) на файлы."""
-    short_links = []
+async def upload_files_and_get_download_links(files):
     tasks = []
     async with aiohttp.ClientSession() as session:
         for file in files:
-            while True:
-                short_link = get_unique_short_id()
-                if short_link not in short_links:
-                    break
-            short_links.append(short_link)
+            filename_unique_part = time_ns() // 10**3
             tasks.append(
                 asyncio.ensure_future(
-                    upload_file(session, file, short_link)
+                    upload_file_and_get_download_link(
+                        session, file, filename_unique_part,
+                    )
                 )
             )
         urls = await asyncio.gather(*tasks)
     return urls
 
 
-async def upload_file(session, file, short_link):
+async def upload_file_and_get_download_link(
+    session, file, filename_unique_part
+):
     async with session.get(
         headers=constants.AUTH_HEADERS,
         params={
-            'path': f'app:/{short_link}_{file.filename}',
+            'path': f'app:/{filename_unique_part}_{file.filename}',
             'fields': 'href',
         },
         url=constants.REQUEST_UPLOAD_URL,
@@ -50,4 +48,4 @@ async def upload_file(session, file, short_link):
         url=constants.DOWNLOAD_LINK_URL,
     ) as response:
         response_file_url = await response.json()
-    return response_file_url['href'], short_link
+    return response_file_url['href']
