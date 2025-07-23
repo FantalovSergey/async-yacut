@@ -11,10 +11,8 @@ def index_view():
     form = MainForm()
     if form.validate_on_submit():
         try:
-            url_map = URLMap.get_url_map(
-                create=True,
-                original=form.original_link.data,
-                short=form.custom_id.data,
+            url_map = URLMap.create_url_map(
+                original=form.original_link.data, short=form.custom_id.data,
             )
         except ValueError as error:
             flash(error)
@@ -33,8 +31,8 @@ async def add_files_view():
         download_links = await upload_files_and_get_download_links(form_data)
         short_links_to_files = []
         for index, download_link in enumerate(download_links):
-            url_map = URLMap.get_url_map(
-                create=True, commit=False, original=download_link,
+            url_map = URLMap.create_url_map(
+                original=download_link, commit=False,
             )
             short_links_to_files.append(
                 (form_data[index].filename, url_map.short)
