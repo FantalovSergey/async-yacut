@@ -5,7 +5,7 @@
 
 # Установка
 
-Клонировать репозиторий и перейти в него в командной строке:
+Клонируйте репозиторий и перейдите в него в командной строке:
 
 ```
 git clone https://github.com/FantalovSergey/async-yacut.git
@@ -15,7 +15,7 @@ git clone https://github.com/FantalovSergey/async-yacut.git
 cd yacut
 ```
 
-Cоздать и активировать виртуальное окружение:
+Cоздайте и активируйте виртуальное окружение:
 
 ```
 python3 -m venv venv
@@ -33,7 +33,7 @@ python3 -m venv venv
     venv\Scripts\activate
     ```
 
-Установить зависимости из файла requirements.txt:
+Установите зависимости из файла requirements.txt:
 
 ```
 python3 -m pip install --upgrade pip
@@ -43,7 +43,7 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Создать в директории проекта файл .env с четыремя переменными окружения:
+Создайте в директории проекта файл .env с четыремя переменными окружения:
 
 ```
 FLASK_APP=yacut
@@ -52,13 +52,13 @@ SECRET_KEY=your_secret_key
 DB=sqlite:///db.sqlite3
 ```
 
-Создать базу данных и применить миграции:
+Создайте базу данных и применить миграции:
 
 ```
 flask db upgrade
 ```
 
-Запустить проект:
+Запустите проект:
 
 ```
 flask run
