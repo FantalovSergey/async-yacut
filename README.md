@@ -52,7 +52,7 @@ SECRET_KEY=your_secret_key
 DB=sqlite:///db.sqlite3
 ```
 
-Создайте базу данных и применить миграции:
+Создайте базу данных и примените миграции:
 
 ```
 flask db upgrade
