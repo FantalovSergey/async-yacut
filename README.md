@@ -71,7 +71,7 @@ flask run
 - Python 3.12.7
 - Flask
 - SQLAlchemy
-- pytest-django
+- pytest
 
 # Об авторе
 Студент факультета Бэкенд платформы Яндекс.Практикум [Фанталов Сергей](https://github.com/FantalovSergey).
